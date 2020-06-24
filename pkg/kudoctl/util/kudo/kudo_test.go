@@ -1,6 +1,7 @@
 package kudo
 
 import (
+	"context"
 	"fmt"
 	"reflect"
 	"testing"
@@ -654,7 +655,7 @@ metadata:
 				namespace, err := k2o.KubeClientset.
 					CoreV1().
 					Namespaces().
-					Get(test.namespace, metav1.GetOptions{})
+					Get(context.TODO(), test.namespace, metav1.GetOptions{})
 				assert.NilError(t, err)
 
 				assert.Equal(t, namespace.Annotations["created-by"], "kudo-cli")

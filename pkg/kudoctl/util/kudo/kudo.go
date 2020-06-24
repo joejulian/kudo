@@ -1,6 +1,7 @@
 package kudo
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -443,7 +444,7 @@ func (c *Client) CreateNamespace(namespace, manifest string) error {
 	}
 	ns.Annotations["created-by"] = "kudo-cli"
 
-	_, err := c.KubeClientset.CoreV1().Namespaces().Create(ns)
+	_, err := c.KubeClientset.CoreV1().Namespaces().Create(context.TODO(), ns, v1.CreateOptions{})
 	return err
 }
 

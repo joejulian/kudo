@@ -17,6 +17,7 @@ limitations under the License.
 package v1beta1
 
 import (
+	"context"
 	"time"
 
 	v1beta1 "github.com/kudobuilder/kudo/pkg/apis/kudo/v1beta1"
@@ -69,7 +70,7 @@ func (c *operators) Get(name string, options v1.GetOptions) (result *v1beta1.Ope
 		Resource("operators").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -86,7 +87,7 @@ func (c *operators) List(opts v1.ListOptions) (result *v1beta1.OperatorList, err
 		Resource("operators").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -103,7 +104,7 @@ func (c *operators) Watch(opts v1.ListOptions) (watch.Interface, error) {
 		Resource("operators").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch()
+		Watch(context.TODO())
 }
 
 // Create takes the representation of a operator and creates it.  Returns the server's representation of the operator, and an error, if there is any.
@@ -113,7 +114,7 @@ func (c *operators) Create(operator *v1beta1.Operator) (result *v1beta1.Operator
 		Namespace(c.ns).
 		Resource("operators").
 		Body(operator).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -126,7 +127,7 @@ func (c *operators) Update(operator *v1beta1.Operator) (result *v1beta1.Operator
 		Resource("operators").
 		Name(operator.Name).
 		Body(operator).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -142,7 +143,7 @@ func (c *operators) UpdateStatus(operator *v1beta1.Operator) (result *v1beta1.Op
 		Name(operator.Name).
 		SubResource("status").
 		Body(operator).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -154,7 +155,7 @@ func (c *operators) Delete(name string, options *v1.DeleteOptions) error {
 		Resource("operators").
 		Name(name).
 		Body(options).
-		Do().
+		Do(context.TODO()).
 		Error()
 }
 
@@ -170,7 +171,7 @@ func (c *operators) DeleteCollection(options *v1.DeleteOptions, listOptions v1.L
 		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
 		Body(options).
-		Do().
+		Do(context.TODO()).
 		Error()
 }
 
@@ -183,7 +184,7 @@ func (c *operators) Patch(name string, pt types.PatchType, data []byte, subresou
 		SubResource(subresources...).
 		Name(name).
 		Body(data).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }

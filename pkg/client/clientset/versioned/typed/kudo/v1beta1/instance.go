@@ -17,6 +17,7 @@ limitations under the License.
 package v1beta1
 
 import (
+	"context"
 	"time"
 
 	v1beta1 "github.com/kudobuilder/kudo/pkg/apis/kudo/v1beta1"
@@ -69,7 +70,7 @@ func (c *instances) Get(name string, options v1.GetOptions) (result *v1beta1.Ins
 		Resource("instances").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -86,7 +87,7 @@ func (c *instances) List(opts v1.ListOptions) (result *v1beta1.InstanceList, err
 		Resource("instances").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -103,7 +104,7 @@ func (c *instances) Watch(opts v1.ListOptions) (watch.Interface, error) {
 		Resource("instances").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch()
+		Watch(context.TODO())
 }
 
 // Create takes the representation of a instance and creates it.  Returns the server's representation of the instance, and an error, if there is any.
@@ -113,7 +114,7 @@ func (c *instances) Create(instance *v1beta1.Instance) (result *v1beta1.Instance
 		Namespace(c.ns).
 		Resource("instances").
 		Body(instance).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -126,7 +127,7 @@ func (c *instances) Update(instance *v1beta1.Instance) (result *v1beta1.Instance
 		Resource("instances").
 		Name(instance.Name).
 		Body(instance).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -142,7 +143,7 @@ func (c *instances) UpdateStatus(instance *v1beta1.Instance) (result *v1beta1.In
 		Name(instance.Name).
 		SubResource("status").
 		Body(instance).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -154,7 +155,7 @@ func (c *instances) Delete(name string, options *v1.DeleteOptions) error {
 		Resource("instances").
 		Name(name).
 		Body(options).
-		Do().
+		Do(context.TODO()).
 		Error()
 }
 
@@ -170,7 +171,7 @@ func (c *instances) DeleteCollection(options *v1.DeleteOptions, listOptions v1.L
 		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
 		Body(options).
-		Do().
+		Do(context.TODO()).
 		Error()
 }
 
@@ -183,7 +184,7 @@ func (c *instances) Patch(name string, pt types.PatchType, data []byte, subresou
 		SubResource(subresources...).
 		Name(name).
 		Body(data).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }

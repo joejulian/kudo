@@ -17,6 +17,7 @@ limitations under the License.
 package v1beta1
 
 import (
+	"context"
 	"time"
 
 	v1beta1 "github.com/kudobuilder/kudo/pkg/apis/kudo/v1beta1"
@@ -69,7 +70,7 @@ func (c *operatorVersions) Get(name string, options v1.GetOptions) (result *v1be
 		Resource("operatorversions").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -86,7 +87,7 @@ func (c *operatorVersions) List(opts v1.ListOptions) (result *v1beta1.OperatorVe
 		Resource("operatorversions").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -103,7 +104,7 @@ func (c *operatorVersions) Watch(opts v1.ListOptions) (watch.Interface, error) {
 		Resource("operatorversions").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch()
+		Watch(context.TODO())
 }
 
 // Create takes the representation of a operatorVersion and creates it.  Returns the server's representation of the operatorVersion, and an error, if there is any.
@@ -113,7 +114,7 @@ func (c *operatorVersions) Create(operatorVersion *v1beta1.OperatorVersion) (res
 		Namespace(c.ns).
 		Resource("operatorversions").
 		Body(operatorVersion).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -126,7 +127,7 @@ func (c *operatorVersions) Update(operatorVersion *v1beta1.OperatorVersion) (res
 		Resource("operatorversions").
 		Name(operatorVersion.Name).
 		Body(operatorVersion).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -142,7 +143,7 @@ func (c *operatorVersions) UpdateStatus(operatorVersion *v1beta1.OperatorVersion
 		Name(operatorVersion.Name).
 		SubResource("status").
 		Body(operatorVersion).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -154,7 +155,7 @@ func (c *operatorVersions) Delete(name string, options *v1.DeleteOptions) error 
 		Resource("operatorversions").
 		Name(name).
 		Body(options).
-		Do().
+		Do(context.TODO()).
 		Error()
 }
 
@@ -170,7 +171,7 @@ func (c *operatorVersions) DeleteCollection(options *v1.DeleteOptions, listOptio
 		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
 		Body(options).
-		Do().
+		Do(context.TODO()).
 		Error()
 }
 
@@ -183,7 +184,7 @@ func (c *operatorVersions) Patch(name string, pt types.PatchType, data []byte, s
 		SubResource(subresources...).
 		Name(name).
 		Body(data).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
